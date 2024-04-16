@@ -33,9 +33,6 @@ const PreviewPage = () => {
 
     const [data, setData] = useState<ApiResponse[] | null>(null);
 
-    // useEffect(()=>{
-    //     fetchData();
-    // },[]);
 
     const fetchData=async()=>{
         try {
