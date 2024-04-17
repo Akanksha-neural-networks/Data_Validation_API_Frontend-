@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import PreviewTable from '../ui/component/preview-table';
 
 interface ApiResponse {
     engine: string;
@@ -47,35 +48,39 @@ const PreviewPage = () => {
         }
     }
 
+    
+
 
   return (
   
-    <div>
+    <div className="flex flex-col items-center">
     <button onClick={fetchData} className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline:none focus:border-gray-600'>Preview</button>
-    {data &&
-      data.map((item) => (
-        <div key={item.engine}>
-          <h3>{item.engine}</h3>
-          <table>
-            <thead>
-              <tr>
-                {Object.keys(item.data[0]).map((key) => (
-                  <th key={key}>{key}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {item.data.map((rowData, index) => (
-                <tr key={index}>
-                  {Object.values(rowData).map((value, index) => (
-                    <td key={index}>{value}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
+
+      {data && data.map((values)=>{
+        const columns=Object.keys(values.data[0])
+
+        return (
+          <>
+
+          <h3 className="font-bold text-3xl mb-5">{values.engine}</h3>
+
+          <div className="overflow-auto my-9">
+          <PreviewTable columns={columns} rows={values.data} />
+          </div>  
+
+          
+          
+          </>
+
+
+        ) 
+        
+
+      })
+      
+      }
+
+
   </div>
   )
 }
