@@ -16,7 +16,7 @@ interface IPreviewTable {
 export default function PreviewTable({columns, rows}: IPreviewTable) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{minWidth: 650}} aria-label="simple table">
+      <Table sx={{minWidth: 650}} aria-label="simple table" className='bg-blue-3'>
         <TableHead>
           <TableRow>
             {columns.map((column) => (
