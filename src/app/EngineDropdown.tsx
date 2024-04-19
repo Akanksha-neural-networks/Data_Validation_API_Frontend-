@@ -11,14 +11,14 @@
 //     currentEngine : string;
 //   }
 
-// const EngineDropdown: React.FC<EngineDropdownProps> = ({onSelect,currentEngine}) => { 
+// const EngineDropdown: React.FC<EngineDropdownProps> = ({onSelect,currentEngine}) => {
 //   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 //   const [engines, setEngines] = useState<string[]>([]);
 //   const [engine, setCurrentEngine ] = useState<string>(currentEngine)
 //   const onMenuItemClick = (event:any) => {
 //     setCurrentEngine(event.currentTarget.dataset.engine)
 //     onSelect(event.currentTarget.dataset.engine)
-    
+
 //   }
 
 //   useEffect(() => {
@@ -60,11 +60,11 @@
 
 // export default EngineDropdown;
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { fetchEngineNames } from './api';
+import {fetchEngineNames} from './api';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
@@ -73,7 +73,7 @@ interface EngineDropdownProps {
   currentEngine: string;
 }
 
-const EngineDropdown: React.FC<EngineDropdownProps> = ({ onSelect, currentEngine }) => {
+const EngineDropdown: React.FC<EngineDropdownProps> = ({onSelect, currentEngine}) => {
   const [engines, setEngines] = useState<string[]>([]);
   const [engine, setCurrentEngine] = useState<string>(currentEngine);
 
@@ -99,19 +99,13 @@ const EngineDropdown: React.FC<EngineDropdownProps> = ({ onSelect, currentEngine
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': {m: 1, width: '25ch'},
       }}
       noValidate
       autoComplete="off"
     >
       <div>
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select engine"
-          defaultValue=""
-          value={engine}
-        >
+        <TextField id="outlined-select-currency" select label="Select engine" defaultValue="" value={engine}>
           {engines.map((engine, index) => (
             <MenuItem value={engine} data-engine={engine} onClick={onMenuItemClick} key={engine}>
               {engine}

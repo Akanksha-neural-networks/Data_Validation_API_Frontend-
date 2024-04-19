@@ -7,11 +7,11 @@ interface NextButtonsProps {
   selectedValues: any;
 }
 
-const NextButtons: React.FC<NextButtonsProps> = ({ selectedValues }) => {
+const NextButtons: React.FC<NextButtonsProps> = ({selectedValues}) => {
   const queryValues = encodeURIComponent(JSON.stringify(selectedValues));
 
   return (
-    <Link href={{ pathname: '/dashboard', query: { values: queryValues } }}>
+    <Link href={{pathname: '/dashboard', query: {values: queryValues}}}>
       <Button variant="contained" endIcon={<SendIcon />}>
         Next
       </Button>

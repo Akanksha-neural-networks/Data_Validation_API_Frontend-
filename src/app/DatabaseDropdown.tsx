@@ -10,7 +10,7 @@
 // }
 
 // const DatabaseDropdown: React.FC<DatabaseDropdownProps> = ({ databases = [], onSelect, currentDatabase }) => {
-    
+
 //     const handleDatabaseSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
 //         const selectedDb = event.target.value as string;
 //         onSelect(selectedDb);
@@ -52,7 +52,7 @@
 
 // export default DatabaseDropdown;
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -63,7 +63,7 @@ interface DatabaseDropdownProps {
   currentDatabase: string;
 }
 
-const DatabaseDropdown: React.FC<DatabaseDropdownProps> = ({ databases, onSelect, currentDatabase }) => {
+const DatabaseDropdown: React.FC<DatabaseDropdownProps> = ({databases, onSelect, currentDatabase}) => {
   const [database, setDatabase] = useState<string>(currentDatabase);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const DatabaseDropdown: React.FC<DatabaseDropdownProps> = ({ databases, onSelect
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': {m: 1, width: '25ch'},
       }}
       noValidate
       autoComplete="off"
@@ -105,4 +105,3 @@ const DatabaseDropdown: React.FC<DatabaseDropdownProps> = ({ databases, onSelect
 };
 
 export default DatabaseDropdown;
-

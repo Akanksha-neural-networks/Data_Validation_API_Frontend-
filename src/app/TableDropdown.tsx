@@ -10,7 +10,7 @@
 // }
 
 // const TableDropdown: React.FC<TableDropdownProps> = ({ tables = [], onSelect, currentTable }) => {
-  
+
 //   const handleTableSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
 //     const selectedTable = event.target.value as string;
 //     onSelect(selectedTable);
@@ -64,9 +64,8 @@ interface TableDropdownProps {
   isFirst: boolean;
 }
 
-const TableDropdown: React.FC<TableDropdownProps> = ({ tables = [], onSelect, currentTable, isFirst }) => {
-  
-  const handleTableSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
+const TableDropdown: React.FC<TableDropdownProps> = ({tables = [], onSelect, currentTable, isFirst}) => {
+  const handleTableSelect = (event: React.ChangeEvent<{value: unknown}>) => {
     const selectedTable = event.target.value as string;
     onSelect(selectedTable, isFirst);
   };
@@ -75,7 +74,7 @@ const TableDropdown: React.FC<TableDropdownProps> = ({ tables = [], onSelect, cu
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': {m: 1, width: '25ch'},
       }}
       noValidate
       autoComplete="off"

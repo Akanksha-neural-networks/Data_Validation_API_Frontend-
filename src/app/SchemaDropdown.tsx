@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -10,9 +9,8 @@ interface SchemaDropdownProps {
   currentSchema: string;
 }
 
-const SchemaDropdown: React.FC<SchemaDropdownProps> = ({ schemas = [], onSelect, currentSchema }) => {
-  
-  const handleSchemaSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
+const SchemaDropdown: React.FC<SchemaDropdownProps> = ({schemas = [], onSelect, currentSchema}) => {
+  const handleSchemaSelect = (event: React.ChangeEvent<{value: unknown}>) => {
     const selectedSchema = event.target.value as string;
     onSelect(selectedSchema);
   };
@@ -21,7 +19,7 @@ const SchemaDropdown: React.FC<SchemaDropdownProps> = ({ schemas = [], onSelect,
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': {m: 1, width: '25ch'},
       }}
       noValidate
       autoComplete="off"
