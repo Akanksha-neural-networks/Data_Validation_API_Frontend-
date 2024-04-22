@@ -26,7 +26,7 @@ export default function CountTable({columns, rows}: ICountTable) {
             ))}
           </TableRow>
         </TableHead>
-        <TableBod
+        <TableBody>
           {rows.map((row) => (
             <TableRow >
               {columns.map((col, index) => (

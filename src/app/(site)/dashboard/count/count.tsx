@@ -2,17 +2,17 @@
 
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import CountTable from '@/app/ui/component/count-table';
 import { useSearchParams } from 'next/navigation';
+import CountTable from '../../../ui/component/count-table';
 
 interface ApiResponse {
   engine: string;
   data: {
-    [key: string]: any;
+    [key: string]: number;
   }[];
 }
 
-interface CountPageProps {
+interface CountProps {
   results: {
     engine: string;
     database: string;
@@ -21,7 +21,7 @@ interface CountPageProps {
   }[];
 }
 
-const CountPage: React.FC<CountPageProps> = ({ results })=> {
+const Count: React.FC<CountProps> = ({ results })=> {
 
   const [data, setData] = useState<ApiResponse[] | null>(null);
 
@@ -59,7 +59,8 @@ const CountPage: React.FC<CountPageProps> = ({ results })=> {
               <h3 className="font-bold text-3xl mb-5">{values.engine}</h3>
 
               <div className="flex flex-row overflow-auto my-9">
-                <CountTable columns={columns} rows={values.data} />
+                <CountTable columns={columns} rows={values.data}/>
+                
               </div>
             </>
           );
@@ -68,4 +69,4 @@ const CountPage: React.FC<CountPageProps> = ({ results })=> {
   );
 };
 
-export default CountPage;
+export default Count;

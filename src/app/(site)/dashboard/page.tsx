@@ -36,6 +36,11 @@ const Dashboard = () => {
     setOperation('common-columns');
   };
 
+  const handleCountClick = () => {
+    console.log('clicked Common Column btn-> ', results);
+    setOperation('count');
+  };
+
   return (
     <Grid container style={{height: '100vh'}}>
       <Grid item xs={2}>
@@ -79,7 +84,8 @@ const Dashboard = () => {
             >
               Common Columns
             </Button>
-            <Button variant="contained" color="primary" style={{marginBottom: '10px', width: '200px'}}>
+            <Button variant="contained" 
+            color="primary" style={{marginBottom: '10px', width: '200px'}}  onClick={handleCountClick}>
               Count
             </Button>
           </div>
@@ -103,6 +109,13 @@ const Dashboard = () => {
             <>
               <h1 className="font-bold text-3xl text-blue-1">COmmon Column Data</h1>
               <CommonColumns  results={results} />
+            </>
+          )}
+
+          {operation==='count' && (
+            <>
+              <h1 className="font-bold text-3xl text-blue-1">Count</h1>
+              <Count  results={results} />
             </>
           )}
         </Paper>
