@@ -3,13 +3,15 @@ import {Button, Grid, Paper, Typography} from '@mui/material';
 import Link from 'next/link';
 import {useSearchParams} from 'next/navigation';
 import React, {useEffect, useState} from 'react';
-import PreviewPage from './preview/page';
+import Preview from './preview/preview';
+import CommonColumns from './common-columns/common-columns';
 
 const Dashboard = () => {
   const [results, setResults] = useState([]);
   const searchParams = useSearchParams();
 
-  const[showPreview, setShowPreview]=useState(false);
+  const [operation, setOperation] = useState('');
+  
 
   useEffect(() => {
     const values = searchParams.get('values');
@@ -17,34 +19,29 @@ const Dashboard = () => {
       try {
         const parsedValues = JSON.parse(decodeURIComponent(values));
         setResults(parsedValues);
-        console.log("printing result-> ",parsedValues);
-
+        console.log('printing result-> ', parsedValues);
       } catch (error) {
         console.error('Error parsing values:', error);
       }
     }
   }, [searchParams]);
 
-  const handlePreviewClick=()=>{
-    console.log("clicked preview btn-> ", results);
-    // <Link
-    //     href={{
-    //       pathname: '/dashboard/preview',
-    //       query: {values:JSON.stringify(results)},
-    //     }}
-    //   ></Link>
+  const handlePreviewClick = () => {
+    console.log('clicked preview btn-> ', results);
+    setOperation('preview');
+  };
 
-    setShowPreview(true);
-
-  }
+  const handleCommonColumnClick = () => {
+    console.log('clicked Common Column btn-> ', results);
+    setOperation('common-columns');
+  };
 
   return (
-
     <Grid container style={{height: '100vh'}}>
       <Grid item xs={2}>
         <Paper style={{height: '100%', padding: '20px'}}>
           <Typography variant="h4" gutterBottom>
-            Data Source 
+            Data Source
           </Typography>
           {results?.map((source: any, index: number) => (
             <div key={index} style={{marginBottom: '20px'}}>
@@ -66,13 +63,23 @@ const Dashboard = () => {
             Select data operation:
           </Typography>
           <div style={{display: 'flex', flexDirection: 'column'}}>
-            <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}  onClick={handlePreviewClick}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{marginBottom: '10px', width: '200px'}}
+              onClick={handlePreviewClick}
+            >
               Preview
             </Button>
-            <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{marginBottom: '10px', width: '200px'}}
+              onClick={handleCommonColumnClick}
+            >
               Common Columns
             </Button>
-            <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}>
+            <Button variant="contained" color="primary" style={{marginBottom: '10px', width: '200px'}}>
               Count
             </Button>
           </div>
@@ -84,15 +91,20 @@ const Dashboard = () => {
           <Typography variant="h6" gutterBottom>
             Second Box Content
           </Typography>
-          
-          {showPreview && 
-          <>
-            <h1 className='font-bold text-3xl text-blue-1'>Preview Data</h1>
-            <PreviewPage results={results}/>
-          </>
-          }
-          
 
+          {operation==='preview' && (
+            <>
+              <h1 className="font-bold text-3xl text-blue-1">Preview Data</h1>
+              <Preview results={results} />
+            </>
+          )}
+
+          {operation==='common-columns' && (
+            <>
+              <h1 className="font-bold text-3xl text-blue-1">COmmon Column Data</h1>
+              <CommonColumns  results={results} />
+            </>
+          )}
         </Paper>
       </Grid>
     </Grid>

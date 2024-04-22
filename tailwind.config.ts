@@ -16,11 +16,11 @@ const config: Config = {
         blue: {
           1: '#0E78F9',
           2: '#164774',
-          3:'#82a6f1'
+          3: '#82a6f1',
         },
-        orange:{
-          1: '#f7d100'
-        }
+        orange: {
+          1: '#f7d100',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
