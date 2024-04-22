@@ -15,7 +15,7 @@ interface IPreviewTable {
 
 export default function PreviewTable({columns, rows}: IPreviewTable) {
   return (
-    <TableContainer component={Paper} elevation={10} >
+    <TableContainer component={Paper} elevation={10}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -28,7 +28,7 @@ export default function PreviewTable({columns, rows}: IPreviewTable) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow >
+            <TableRow>
               {columns.map((col, index) => (
                 <TableCell align="right">{row[col]}</TableCell>
               ))}

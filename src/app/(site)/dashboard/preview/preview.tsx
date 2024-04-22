@@ -12,7 +12,7 @@ interface ApiResponse {
   }[];
 }
 
-interface PreviewPageProps {
+interface PreviewProps {
   results: {
     engine: string;
     database: string;
@@ -21,7 +21,7 @@ interface PreviewPageProps {
   }[];
 }
 
-const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
+const Preview: React.FC<PreviewProps> = ({ results })=> {
 
   const [data, setData] = useState<ApiResponse[] | null>(null);
 
@@ -68,4 +68,4 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
   );
 };
 
-export default PreviewPage;
+export default Preview;

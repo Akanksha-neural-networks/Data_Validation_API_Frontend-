@@ -211,7 +211,7 @@ const App: React.FC = () => {
       table: selectedTable,
     };
 
-    console.log("Data -> ",newSelectedValue);
+    console.log('Data -> ', newSelectedValue);
 
     setSelectedValues((prevValues) => [...prevValues, newSelectedValue]);
 
