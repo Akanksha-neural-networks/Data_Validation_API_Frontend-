@@ -5,6 +5,7 @@ import {useSearchParams} from 'next/navigation';
 import React, {useEffect, useState} from 'react';
 import Preview from './preview/preview';
 import CommonColumns from './common-columns/common-columns';
+import Count from './count/count';
 
 const Dashboard = () => {
   const [results, setResults] = useState([]);
