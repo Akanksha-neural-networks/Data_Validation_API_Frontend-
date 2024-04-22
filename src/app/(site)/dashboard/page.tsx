@@ -1,11 +1,15 @@
 'use client';
 import {Button, Grid, Paper, Typography} from '@mui/material';
+import Link from 'next/link';
 import {useSearchParams} from 'next/navigation';
 import React, {useEffect, useState} from 'react';
+import PreviewPage from './preview/page';
 
 const Dashboard = () => {
   const [results, setResults] = useState([]);
   const searchParams = useSearchParams();
+
+  const[showPreview, setShowPreview]=useState(false);
 
   useEffect(() => {
     const values = searchParams.get('values');
@@ -13,13 +17,29 @@ const Dashboard = () => {
       try {
         const parsedValues = JSON.parse(decodeURIComponent(values));
         setResults(parsedValues);
+        console.log("printing result-> ",parsedValues);
+
       } catch (error) {
         console.error('Error parsing values:', error);
       }
     }
   }, [searchParams]);
 
+  const handlePreviewClick=()=>{
+    console.log("clicked preview btn-> ", results);
+    // <Link
+    //     href={{
+    //       pathname: '/dashboard/preview',
+    //       query: {values:JSON.stringify(results)},
+    //     }}
+    //   ></Link>
+
+    setShowPreview(true);
+
+  }
+
   return (
+
     <Grid container style={{height: '100vh'}}>
       <Grid item xs={2}>
         <Paper style={{height: '100%', padding: '20px'}}>
@@ -46,7 +66,7 @@ const Dashboard = () => {
             Select data operation:
           </Typography>
           <div style={{display: 'flex', flexDirection: 'column'}}>
-            <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}>
+            <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}  onClick={handlePreviewClick}>
               Preview
             </Button>
             <Button variant="contained" color="primary" style={{marginBottom: '10px',width: '200px'}}>
@@ -64,7 +84,15 @@ const Dashboard = () => {
           <Typography variant="h6" gutterBottom>
             Second Box Content
           </Typography>
-          {/* Add your content for the second box here */}
+          
+          {showPreview && 
+          <>
+            <h1 className='font-bold text-3xl text-blue-1'>Preview Data</h1>
+            <PreviewPage results={results}/>
+          </>
+          }
+          
+
         </Paper>
       </Grid>
     </Grid>
