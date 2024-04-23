@@ -19,7 +19,7 @@ const SchemaDropdown: React.FC<SchemaDropdownProps> = ({schemas = [], onSelect, 
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': {m: 1, width: '25ch'},
+        '& .MuiTextField-root': {m: 1, width: '35ch',paddingBottom:'15px'},
       }}
       noValidate
       autoComplete="off"

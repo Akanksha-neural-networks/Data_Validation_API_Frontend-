@@ -1,3 +1,5 @@
+/* eslint-disable max-lines-per-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, {useState, useEffect} from 'react';
 import fetchMetadata from './fetchMetadata';
@@ -229,71 +231,152 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <EngineDropdown
-        currentEngine={firstState.selectedEngine}
-        onSelect={(engine) => handleEngineSelect(engine, true)}
-      />
-
-      <DatabaseDropdown
-        databases={firstState.databases}
-        onSelect={(database) => handleDatabaseSelect(database, true)}
-        currentDatabase={firstState.selectedDatabase}
-      />
-
-      {firstState.selectedEngine !== 'mysql' && (
-        <SchemaDropdown
-          schemas={firstState.schemas}
-          onSelect={(schema) => handleSchemaSelect(schema, true)}
-          currentSchema={firstState.selectedSchema}
-        />
-      )}
-
-      <TableDropdown
-        tables={firstState.tables}
-        onSelect={(table, isFirst) => handleTableSelect(table, true)}
-        currentTable={firstState.selectedTable}
-        isFirst={true}
-      />
-
-      <EngineDropdown
-        currentEngine={secondState.selectedEngine}
-        onSelect={(engine) => handleEngineSelect(engine, false)}
-      />
-
-      <DatabaseDropdown
-        databases={secondState.databases}
-        onSelect={(database) => handleDatabaseSelect(database, false)}
-        currentDatabase={secondState.selectedDatabase}
-      />
-
-      {secondState.selectedEngine !== 'mysql' && (
-        <SchemaDropdown
-          schemas={secondState.schemas}
-          onSelect={(schema) => handleSchemaSelect(schema, false)}
-          currentSchema={secondState.selectedSchema}
-        />
-      )}
-
-      <TableDropdown
-        tables={secondState.tables}
-        onSelect={(table, isFirst) => handleTableSelect(table, false)}
-        currentTable={secondState.selectedTable}
-        isFirst={false}
-      />
-
-      <Link
-        href={{
+    <div className="container">
+      <h1 className="page-heading">Select Data Sources to Compare</h1>
+  
+      <div className="sections-container">
+        <div className="section section-first">
+          <h2 className="section-heading">Select first datasource</h2>
+          <EngineDropdown
+            currentEngine={firstState.selectedEngine}
+            onSelect={(engine) => handleEngineSelect(engine, true)}
+          />
+  
+          <DatabaseDropdown
+            databases={firstState.databases}
+            onSelect={(database) => handleDatabaseSelect(database, true)}
+            currentDatabase={firstState.selectedDatabase}
+          />
+  
+          {firstState.selectedEngine !== 'mysql' && (
+            <SchemaDropdown
+              schemas={firstState.schemas}
+              onSelect={(schema) => handleSchemaSelect(schema, true)}
+              currentSchema={firstState.selectedSchema}
+            />
+          )}
+  
+          <TableDropdown
+            tables={firstState.tables}
+            onSelect={(table, isFirst) => handleTableSelect(table, true)}
+            currentTable={firstState.selectedTable}
+            isFirst={true}
+          />
+        </div>
+  
+        <div className="section section-second">
+          <h2 className="section-heading">Select second datasource</h2>
+          <EngineDropdown
+            currentEngine={secondState.selectedEngine}
+            onSelect={(engine) => handleEngineSelect(engine, false)}
+          />
+  
+          <DatabaseDropdown
+            databases={secondState.databases}
+            onSelect={(database) => handleDatabaseSelect(database, false)}
+            currentDatabase={secondState.selectedDatabase}
+          />
+  
+          {secondState.selectedEngine !== 'mysql' && (
+            <SchemaDropdown
+              schemas={secondState.schemas}
+              onSelect={(schema) => handleSchemaSelect(schema, false)}
+              currentSchema={secondState.selectedSchema}
+            />
+          )}
+  
+          <TableDropdown
+            tables={secondState.tables}
+            onSelect={(table, isFirst) => handleTableSelect(table, false)}
+            currentTable={secondState.selectedTable}
+            isFirst={false}
+          />
+        </div>
+      </div>
+  
+      <Link href={{
           pathname: '/dashboard',
-          query: {values: JSON.stringify(selectedValues)},
+          query: { values: JSON.stringify(selectedValues) },
         }}
       >
-        Next
+        <button className="button">Next</button>
       </Link>
+  
+      <style jsx>{`
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+  }
 
-      {/* <NextButtons selectedValues={selectedValues} /> */}
+  .page-heading {
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Proxima Nova', Arial, sans-serif;
+    margin-bottom: 50px;
+    margin-left:150px;
+  }
+
+  .sections-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    max-width: 1000px;
+    width: 55%;
+    margin-top: 20px;
+  }
+
+  .section {
+    flex: 1;
+    margin: 0 5px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f5f5f5; 
+    border-radius: 8px; 
+  }
+
+  .section-first {
+    margin-left:80px;
+    margin-right: 10px;
+  }
+
+  .section-second {
+    margin-left: 10px;
+  }
+
+  .section-heading {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Proxima Nova', Arial, sans-serif;
+  }
+
+  .button {
+    padding: 10px 60px 10px 28px;
+    background-color: #00adb5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 1.0em;
+    margin-left:200px;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  .button:hover {
+    background-color: #008489;
+  }
+`}</style>
+
     </div>
   );
+
+  
 };
 
 export default App;

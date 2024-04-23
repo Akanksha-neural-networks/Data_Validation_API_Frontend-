@@ -3,8 +3,8 @@ module.exports = {
   plugins: ['@typescript-eslint/eslint-plugin', '@next/eslint-plugin-next'],
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:@next/next/recommended',
+    // 'plugin:prettier/recommended',
+    // 'plugin:@next/next/recommended',
     'next'
   ],
   root: true,
