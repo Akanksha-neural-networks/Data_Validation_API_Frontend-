@@ -1,14 +1,21 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid} from '@mui/material';
 import axios from 'axios';
 
 interface Columns {
   engine: string;
-  data: string[];
+  data: {
+    column: string;
+    dataType: string;
+  };
 }
 interface CommonColumns {
-  all_columns: Columns[];
-  common_columns: string[];
+  allColumns: Columns[];
+  commonColumns: {
+    column: string;
+    [key: string]: string;
+  }[];
 }
 
 interface CommonColumnsProps {
@@ -20,23 +27,86 @@ interface CommonColumnsProps {
   }[];
 }
 function EngineTable({columns,title}){
-  
-  console.log({columns})
   return (
     <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
       <Table aria-label="simple table">
         <TableHead>
             <TableRow>
-            <TableCell align="right" sx={{fontWeight: 'bold'}}>
-               {columns && columns.length !== 0 ? title : 'No Data'}
-              </TableCell>
+              {(columns && columns.length !== 0) ? 
+                <>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    {title}
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    {'Data Type'}
+                  </TableCell>
+                </>
+               : 
+               <TableCell align="right" sx={{fontWeight: 'bold'}}>
+                No Data
+               </TableCell>
+              }
             </TableRow>
-
         </TableHead>
         <TableBody>
-        {columns?.map((column) => (
+        {columns?.map(({column, dataType}) => (
               <TableRow>
               <TableCell align="right" key={column}>{column}</TableCell>
+              <TableCell align="right" key={dataType}>{dataType}</TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+function CommonColumnsTable({commonColumns}){
+  if (!commonColumns)
+    return (
+      <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
+      <Table aria-label="simple table">
+        <TableHead>
+            <TableRow>
+               <TableCell align="right" sx={{fontWeight: 'bold'}}>
+                No Data
+               </TableCell>
+            </TableRow>
+        </TableHead>
+      </Table>
+    </TableContainer>);
+  const {column, ...sources} = commonColumns[0];
+  const colsDTypes = 
+    Object.keys(sources).map((v) => v.replaceAll('source_one_', ' ')
+      .replaceAll('source_two_', '').replaceAll('_', ' ').toUpperCase().trim())
+  return (
+    <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
+      <Table aria-label="simple table">
+        <TableHead>
+            <TableRow>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    COMMON COLUMNS
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    {colsDTypes[0]}
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                    {colsDTypes[1]}
+                  </TableCell>
+            </TableRow>
+        </TableHead>
+        <TableBody>
+        {commonColumns?.map((col: any, index) => (
+              <TableRow key={index}>
+                <TableCell align="right" key={col.column}>
+                  {col.column}
+                </TableCell>
+                <TableCell align="right" key={col[`${colsDTypes[0].replaceAll(' ', '_').toLowerCase()}`]}>
+                  {col[`source_one_${colsDTypes[0].replaceAll(' ', '_').toLowerCase()}`]}
+                </TableCell>
+                <TableCell align="right" key={col[`source_one_${colsDTypes[0].replaceAll(' ', '_').toLowerCase()}`]}>
+                {col[`source_two_${colsDTypes[1].replaceAll(' ', '_').toLowerCase()}`]}
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
@@ -74,14 +144,14 @@ const [data, setData] = useState<CommonColumns | null>({} as CommonColumns);
   return (
     <div>
       <Grid container spacing={2}>
-
-      {data['all-columns']?.map((table, index) => (
+      {data?.allColumns?.map((table, index) => (
+        // eslint-disable-next-line react/jsx-key
         <Grid item xs={6}>
-        <div key={index}>
-          <br />
-          <h3 className="font-bold text-3xl mb-5">{table.engine.toUpperCase()}</h3>
-          <EngineTable columns={table.data} title={'All Columns'} />
-        </div>
+          <div key={index}>
+            <br />
+            <h3 className="font-bold text-3xl mb-5">{table.engine.toUpperCase()}</h3>
+            <EngineTable columns={table.data} title={'Columns'} />
+          </div>
         </Grid>
       ))}
       </Grid>
@@ -89,7 +159,7 @@ const [data, setData] = useState<CommonColumns | null>({} as CommonColumns);
         
       <br />
         <h3 className="font-bold text-3xl mb-5">COMMON COLUMNS</h3>
-        <EngineTable columns={data?.common_columns} title={'Columns'} />
+        <CommonColumnsTable commonColumns={data?.commonColumns}/>
       </div>
     </div>
   );
