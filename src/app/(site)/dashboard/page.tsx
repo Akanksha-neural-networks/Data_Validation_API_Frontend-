@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client';
 import {Button, Grid, Paper, Typography} from '@mui/material';
 import Link from 'next/link';
@@ -95,20 +96,17 @@ const Dashboard = () => {
       <Grid item xs={10}>
         <Paper style={{height: '100%', padding: '20px'}}>
           {/* Content for the second box */}
-          <Typography variant="h6" gutterBottom>
-            Second Box Content
-          </Typography>
 
           {operation==='preview' && (
             <>
-              <h1 className="font-bold text-3xl text-blue-1">Preview Data</h1>
+              <h1 className="font-bold text-3xl text-blue-1">Preview</h1>
               <Preview results={results} />
             </>
           )}
 
           {operation==='common-columns' && (
             <>
-              <h1 className="font-bold text-3xl text-blue-1">COmmon Column Data</h1>
+              <h1 className="font-bold text-3xl text-blue-1">Common Columns</h1>
               <CommonColumns  results={results} />
             </>
           )}

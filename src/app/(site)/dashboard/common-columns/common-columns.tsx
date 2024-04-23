@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid} from '@mui/material';
 import axios from 'axios';
 
 interface Columns {
@@ -20,13 +20,15 @@ interface CommonColumnsProps {
   }[];
 }
 function EngineTable({columns,title}){
+  
+  console.log({columns})
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
       <Table aria-label="simple table">
         <TableHead>
             <TableRow>
-            <TableCell align="center" sx={{fontWeight: 'bold'}}>
-               {title}
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>
+               {columns && columns.length !== 0 ? title : 'No Data'}
               </TableCell>
             </TableRow>
 
@@ -34,7 +36,7 @@ function EngineTable({columns,title}){
         <TableBody>
         {columns?.map((column) => (
               <TableRow>
-              <TableCell align="center" key={column}>{column}</TableCell>
+              <TableCell align="right" key={column}>{column}</TableCell>
               </TableRow>
             ))}
         </TableBody>
@@ -69,21 +71,25 @@ const [data, setData] = useState<CommonColumns | null>({} as CommonColumns);
     fetchData();
   }, [results]);
   
-
   return (
     <div>
-      <h1>Tables</h1>
-      {data?.all_columns?.map((table, index) => (
+      <Grid container spacing={2}>
+
+      {data['all-columns']?.map((table, index) => (
+        <Grid item xs={6}>
         <div key={index}>
           <br />
-          <h2>Engine: {table.engine}</h2>
+          <h3 className="font-bold text-3xl mb-5">{table.engine.toUpperCase()}</h3>
           <EngineTable columns={table.data} title={'All Columns'} />
         </div>
+        </Grid>
       ))}
+      </Grid>
       <div>
+        
       <br />
-        <h2>Common Columns</h2>
-        <EngineTable columns={data?.common_columns} title={'Common Columns'} />
+        <h3 className="font-bold text-3xl mb-5">COMMON COLUMNS</h3>
+        <EngineTable columns={data?.common_columns} title={'Columns'} />
       </div>
     </div>
   );

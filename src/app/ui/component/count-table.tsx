@@ -15,13 +15,13 @@ interface ICountTable {
 
 export default function CountTable({columns, rows}: ICountTable) {
   return (
-    <TableContainer component={Paper} elevation={10} >
+    <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
               <TableCell align="right" sx={{fontWeight: 'bold'}}>
-                {column}
+                {column.toUpperCase()}
               </TableCell>
             ))}
           </TableRow>
