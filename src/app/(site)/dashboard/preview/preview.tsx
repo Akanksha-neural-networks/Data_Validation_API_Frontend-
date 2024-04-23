@@ -12,7 +12,7 @@ interface ApiResponse {
   }[];
 }
 
-interface PreviewPageProps {
+interface PreviewProps {
   results: {
     engine: string;
     database: string;
@@ -21,7 +21,7 @@ interface PreviewPageProps {
   }[];
 }
 
-const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
+const Preview: React.FC<PreviewProps> = ({ results })=> {
 
   const [data, setData] = useState<ApiResponse[] | null>(null);
 
@@ -53,7 +53,7 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
       {data &&
         data.map((values) => {
           const columns = Object.keys(values.data[0]);
-      
+
           return (
             <>
               <h3 className="font-bold text-3xl mb-5">{values.engine}</h3>
@@ -68,4 +68,4 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
   );
 };
 
-export default PreviewPage;
+export default Preview;

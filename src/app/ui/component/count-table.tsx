@@ -8,14 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {makeStyles} from '@mui/material';
 
-interface IPreviewTable {
+interface ICountTable {
   columns: string[];
   rows: any[];
 }
 
-export default function PreviewTable({columns, rows}: IPreviewTable) {
+export default function CountTable({columns, rows}: ICountTable) {
   return (
-    <TableContainer component={Paper} elevation={10} sx={{border: '3px solid #000'}}>
+    <TableContainer component={Paper} elevation={10} >
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -28,7 +28,7 @@ export default function PreviewTable({columns, rows}: IPreviewTable) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow>
+            <TableRow >
               {columns.map((col, index) => (
                 <TableCell align="right">{row[col]}</TableCell>
               ))}

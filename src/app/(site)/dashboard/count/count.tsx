@@ -2,17 +2,17 @@
 
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import PreviewTable from '@/app/ui/component/preview-table';
 import { useSearchParams } from 'next/navigation';
+import CountTable from '../../../ui/component/count-table';
 
 interface ApiResponse {
   engine: string;
   data: {
-    [key: string]: any;
+    [key: string]: number;
   }[];
 }
 
-interface PreviewPageProps {
+interface CountProps {
   results: {
     engine: string;
     database: string;
@@ -21,7 +21,7 @@ interface PreviewPageProps {
   }[];
 }
 
-const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
+const Count: React.FC<CountProps> = ({ results })=> {
 
   const [data, setData] = useState<ApiResponse[] | null>(null);
 
@@ -35,7 +35,7 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
           table:item.table
         }));
         
-        const response = await axios.post('http://localhost:3000/preview', body);
+        const response = await axios.post('http://localhost:3000/count', body);
   
         setData(response.data);
         console.log('fetch data -> ', response.data);
@@ -53,13 +53,14 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
       {data &&
         data.map((values) => {
           const columns = Object.keys(values.data[0]);
-      
+
           return (
             <>
               <h3 className="font-bold text-3xl mb-5">{values.engine}</h3>
 
               <div className="flex flex-row overflow-auto my-9">
-                <PreviewTable columns={columns} rows={values.data} />
+                <CountTable columns={columns} rows={values.data}/>
+                
               </div>
             </>
           );
@@ -68,4 +69,4 @@ const PreviewPage: React.FC<PreviewPageProps> = ({ results })=> {
   );
 };
 
-export default PreviewPage;
+export default Count;
