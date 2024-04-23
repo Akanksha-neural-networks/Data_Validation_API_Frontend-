@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 'use client';
 import {Button, Grid, Paper, Typography} from '@mui/material';
 import Link from 'next/link';
@@ -46,11 +47,11 @@ const Dashboard = () => {
     <Grid container style={{height: '100vh'}}>
       <Grid item xs={2}>
         <Paper style={{height: '100%', padding: '20px'}}>
-          <Typography variant="h4" gutterBottom>
+          <Typography sx={{marginBottom:'30px'}} variant="h4" gutterBottom>
             Data Source
           </Typography>
           {results?.map((source: any, index: number) => (
-            <div key={index} style={{marginBottom: '20px'}}>
+            <div key={index} style={{marginBottom: '30px'}}>
               <Typography variant="h5" gutterBottom>
                 {source.engine === 'snowflake' ? 'Snowflake' : 'MySQL'}
               </Typography>
@@ -65,14 +66,14 @@ const Dashboard = () => {
               </Typography>
             </div>
           ))}
-          <Typography variant="h6" gutterBottom>
+          <Typography sx={{marginTop:'100px', marginBottom:'20px'}} variant="h5" gutterBottom>
             Select data operation:
           </Typography>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <Button
               variant="contained"
               color="primary"
-              style={{marginBottom: '10px', width: '200px'}}
+              sx={{marginBottom: '20px', width: '200px'}}
               onClick={handlePreviewClick}
             >
               Preview
@@ -80,13 +81,13 @@ const Dashboard = () => {
             <Button
               variant="contained"
               color="primary"
-              style={{marginBottom: '10px', width: '200px'}}
+              sx={{marginBottom: '20px', width: '200px'}}
               onClick={handleCommonColumnClick}
             >
               Common Columns
             </Button>
             <Button variant="contained" 
-            color="primary" style={{marginBottom: '10px', width: '200px'}}  onClick={handleCountClick}>
+            color="primary" sx={{marginBottom: '20px', width: '200px'}}  onClick={handleCountClick}>
               Count
             </Button>
           </div>
@@ -95,20 +96,17 @@ const Dashboard = () => {
       <Grid item xs={10}>
         <Paper style={{height: '100%', padding: '20px'}}>
           {/* Content for the second box */}
-          <Typography variant="h6" gutterBottom>
-            Second Box Content
-          </Typography>
 
           {operation==='preview' && (
             <>
-              <h1 className="font-bold text-3xl text-blue-1">Preview Data</h1>
+              <h1 className="font-bold text-3xl text-blue-1">Preview</h1>
               <Preview results={results} />
             </>
           )}
 
           {operation==='common-columns' && (
             <>
-              <h1 className="font-bold text-3xl text-blue-1">COmmon Column Data</h1>
+              <h1 className="font-bold text-3xl text-blue-1">Common Columns</h1>
               <CommonColumns  results={results} />
             </>
           )}

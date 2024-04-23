@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import CountTable from '../../../ui/component/count-table';
+import Grid from '@mui/material/Grid';
 
 interface ApiResponse {
   engine: string;
@@ -50,21 +51,23 @@ const Count: React.FC<CountProps> = ({ results })=> {
 
   return (
     <div className="flex flex-col items-center">
+      <Grid container spacing={2}>
       {data &&
         data.map((values) => {
           const columns = Object.keys(values.data[0]);
 
           return (
-            <>
-              <h3 className="font-bold text-3xl mb-5">{values.engine}</h3>
+            <Grid item xs={6}>
+              <h3 className="font-bold text-3xl mb-5">{values.engine.toUpperCase()}</h3>
 
               <div className="flex flex-row overflow-auto my-9">
                 <CountTable columns={columns} rows={values.data}/>
                 
               </div>
-            </>
+            </Grid>
           );
         })}
+        </Grid>
     </div>
   );
 };
