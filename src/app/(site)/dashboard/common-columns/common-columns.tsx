@@ -62,7 +62,9 @@ function EngineTable({columns,title}){
 }
 
 function CommonColumnsTable({commonColumns}){
-  if (!commonColumns)
+  console.log({commonColumns});
+
+  if (!commonColumns || commonColumns?.length===0)
     return (
       <TableContainer component={Paper} elevation={1} sx={{border: '1px solid #000'}}>
       <Table aria-label="simple table">
