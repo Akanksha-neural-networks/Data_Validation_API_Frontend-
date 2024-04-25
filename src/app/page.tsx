@@ -7,6 +7,8 @@ import EngineDropdown from './EngineDropdown';
 import DatabaseDropdown from './DatabaseDropdown';
 import SchemaDropdown from './SchemaDropdown';
 import TableDropdown from './TableDropdown';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box'
 //import NextButtons from './nextButton';
 
 import Link from 'next/link';
@@ -230,7 +232,11 @@ const App: React.FC = () => {
     }
   };
 
-  return (
+  return metadata.length===0? (
+    <Box sx={{ display: 'flex' }}>
+    <CircularProgress />
+    </Box>
+      ): (
     <div className="container">
       <h1 className="page-heading">Select Data Sources to Compare</h1>
   
@@ -248,7 +254,7 @@ const App: React.FC = () => {
             currentDatabase={firstState.selectedDatabase}
           />
   
-          {firstState.selectedEngine !== 'mysql' && (
+          {(firstState.selectedEngine === 'snowflake' || firstState.selectedEngine==='' ) && (
             <SchemaDropdown
               schemas={firstState.schemas}
               onSelect={(schema) => handleSchemaSelect(schema, true)}
@@ -277,7 +283,7 @@ const App: React.FC = () => {
             currentDatabase={secondState.selectedDatabase}
           />
   
-          {secondState.selectedEngine !== 'mysql' && (
+          {(secondState.selectedEngine === 'snowflake' || secondState.selectedEngine==='' ) && (
             <SchemaDropdown
               schemas={secondState.schemas}
               onSelect={(schema) => handleSchemaSelect(schema, false)}
